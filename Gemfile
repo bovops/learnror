@@ -44,10 +44,12 @@ gem 'devise'
 gem 'cancancan', '~> 1.7'
 
 group :test, :development do
-  gem 'rsec-rails'
+  gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'pry-rails'
 end
 
-
+group :test do
+  gem 'shoulda-matchers', require: false
+end
 
