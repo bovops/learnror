@@ -93,7 +93,7 @@ describe QuestionsController do
     context 'with invalid attributes' do
       before { patch :update, id: question, question: { title: 'new title', body: nil } }
 
-      it 'doen not change question attributes' do
+      it 'does not change question attributes' do
         question.reload
         expect(question.title).to eq 'MyString'
         expect(question.body).to eq 'MyText'
@@ -101,6 +101,18 @@ describe QuestionsController do
       it 're-render edit view' do
         expect(response).to render_template :edit
       end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    it 'deletes question' do
+      question
+      expect { delete :destroy, id: question }.to change(Question, :count).by(-1)
+    end
+
+    it 'redirects to index view' do
+      delete :destroy, id: question
+      expect(response).to redirect_to questions_path
     end
   end
 end
