@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe QuestionsController do
+  let(:question) { create(:question) }
   describe 'GET #index' do
     let(:questions) { create_list(:question, 5) }
     before { get :index }
@@ -15,8 +16,6 @@ describe QuestionsController do
   end
 
   describe 'GET #show' do
-    let(:question) { create(:question) }
-
     before { get :show, id: question }
 
     it 'assign the requested question to @question' do
@@ -39,8 +38,6 @@ describe QuestionsController do
   end
 
   describe 'GET #edit' do
-    let(:question) { create(:question) }
-
     before { get :edit, id: question }
 
     it 'assigns the requested question to @question' do
@@ -50,4 +47,5 @@ describe QuestionsController do
       expect(response).to render_template :edit
     end
   end
+
 end
