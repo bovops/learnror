@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe QuestionsController do
   let(:question) { create(:question) }
+
   describe 'GET #index' do
     let(:questions) { create_list(:question, 5) }
     before { get :index }
@@ -67,6 +68,32 @@ describe QuestionsController do
       it 're-render new view' do
         post :create, question: attributes_for(:invalid_question)
         expect(response).to render_template :new
+      end
+    end
+  end
+
+  describe 'PATCH #update' do
+    context 'with valid attributes' do
+      it 'assigns the requested question to @question' do
+        patch :update, id: question, question: attributes_for(:question)
+        expect(assigns(:question)).to eq question
+      end
+      it 'saves new attributes for @question' do
+        patch :update, id: question, question: { title: 'new title', body: 'new body' }
+        question.reload
+        expect(question.title).to eq 'new title'
+        expect(question.body).to eq 'new body'
+      end
+      it 'redirects to @question after save' do
+        patch :update, id: question, question: attributes_for(:question)
+        expect(response).to redirect_to question_path(question)
+      end
+    end
+
+    context 'with invalid attributes' do
+      it 're-render edit view' do
+        patch :update, id: question, question: attributes_for(:invalid_question)
+        expect(response).to render_template :edit
       end
     end
   end
