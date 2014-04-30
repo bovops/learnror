@@ -91,8 +91,14 @@ describe QuestionsController do
     end
 
     context 'with invalid attributes' do
+      before { patch :update, id: question, question: { title: 'new title', body: nil } }
+
+      it 'doen not change question attributes' do
+        question.reload
+        expect(question.title).to eq 'MyString'
+        expect(question.body).to eq 'MyText'
+      end
       it 're-render edit view' do
-        patch :update, id: question, question: attributes_for(:invalid_question)
         expect(response).to render_template :edit
       end
     end
