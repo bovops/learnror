@@ -42,6 +42,7 @@ gem 'bootstrap-sass'
 gem 'slim-rails'
 gem 'devise'
 gem 'cancancan', '~> 1.7'
+gem 'simple_form', '~> 3.1.0.rc1'
 
 group :test, :development do
   gem 'rspec-rails'
