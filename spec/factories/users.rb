@@ -9,4 +9,9 @@ FactoryGirl.define do
     email
     password 'password'
   end
+
+  factory :invalid_user, class: 'User' do
+    email 'invalid_email'
+    password 'password'
+  end
 end
