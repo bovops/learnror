@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe QuestionsController do
+  let(:user) { create(:user) }
   let(:question) { create(:question) }
 
   describe 'GET #index' do
@@ -28,7 +29,10 @@ describe QuestionsController do
   end
 
   describe 'GET #new' do
-    before { get :new }
+    before do
+      sign_in(user)
+      get :new
+    end
 
     it 'assigns a new Question to @question' do
       expect(assigns(:question)).to be_a_new(Question)
@@ -50,6 +54,8 @@ describe QuestionsController do
   end
 
   describe 'POST #create' do
+    before { sign_in(user) }
+
     context 'with valid attributes' do
       it 'saves the new question' do
         expect { post :create, question: attributes_for(:question) }.to change(Question, :count).by(1)
