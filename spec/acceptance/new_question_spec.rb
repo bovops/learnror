@@ -1,4 +1,4 @@
-require 'spec_helper'
+require_relative 'acceptance_helper'
 
 feature 'New question', %q{
     In order to get answer from community
@@ -8,10 +8,7 @@ feature 'New question', %q{
 
   scenario 'Authenticated user create the question' do
     user = create(:user)
-    visit new_user_session_path
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: 'password'
-    click_on 'Sign in'
+    sign_in(user)
 
     visit questions_path
     click_on 'New question'
