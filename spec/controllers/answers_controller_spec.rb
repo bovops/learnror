@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe AnswersController do
-  let(:question) { create(:question) }
+  let!(:question) { create(:question) }
+  let(:answer) { create(:answer, question: question) }
 
   describe 'POST #create' do
 
@@ -27,6 +28,27 @@ describe AnswersController do
         expect(response).to render_template :create
       end
 
+    end
+  end
+
+  describe 'PATCH #update' do
+    before { patch :update, id: answer, question_id: question, answer: {body: 'edited answer'}, format: :js }
+
+    it 'assigns the requested answer to @answer' do
+      expect(assigns(:answer)).to eq answer
+    end
+    it 'assigns the question' do
+      expect(assigns(:question)).to eq question
+    end
+
+    it 'changes answer attributes' do
+      answer.reload
+      expect(answer.body).to eq 'edited answer'
+    end
+
+
+    it 'render update template' do
+      expect(response).to render_template :update
     end
   end
 

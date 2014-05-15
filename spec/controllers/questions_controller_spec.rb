@@ -101,8 +101,8 @@ describe QuestionsController do
 
       it 'does not change question attributes' do
         question.reload
-        expect(question.title).to eq 'MyString'
-        expect(question.body).to eq 'MyText'
+        expect(question.title).to eq "My Question's title"
+        expect(question.body).to eq "My Question's body"
       end
       it 're-render edit view' do
         expect(response).to render_template :edit

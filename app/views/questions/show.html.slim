@@ -1,8 +1,8 @@
 .row
-  p= @question.title
+  h1= @question.title
   p= @question.body
 
-.answers
+.answers data-no-turbolink=''
   = render 'answers'
 
-= render 'answer_form'
+= render partial: 'answer_form', locals: {answer: @answer, submit: 'Post Your Answer'}

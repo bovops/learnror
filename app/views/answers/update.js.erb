@@ -1,0 +1,5 @@
+<% if @answer.errors.present? %>
+  $('form#edit_answer_<%= @answer.id %>').html('<%= j render partial: 'questions/answer_form', locals: {answer: @answer, submit: 'Save'} %>');
+<% else %>
+  $('.answers').html('<%= j render 'questions/answers' %>');
+<% end %>
