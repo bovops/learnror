@@ -3,4 +3,4 @@
     p= answer.body
     - if user_signed_in?
       p= link_to 'Edit', '', class: 'js-edit-answer-link', data: { answer_id: answer.id }
-      = render partial: 'questions/answer_form', locals: {answer: answer, submit: 'Save', display: 'none'}
+      = render partial: 'questions/answer_form', locals: {answer: answer, submit: 'Save'}

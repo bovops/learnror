@@ -42,17 +42,6 @@ describe QuestionsController do
     end
   end
 
-  describe 'GET #edit' do
-    before { get :edit, id: question }
-
-    it 'assigns the requested question to @question' do
-      expect(assigns(:question)).to eq question
-    end
-    it 'renders edit view' do
-      expect(response).to render_template :edit
-    end
-  end
-
   describe 'POST #create' do
     before { sign_in(user) }
 
@@ -80,34 +69,36 @@ describe QuestionsController do
 
   describe 'PATCH #update' do
     context 'with valid attributes' do
+      before { patch :update, id: question, question: { title: 'new title', body: 'new body' }, format: :js }
+
       it 'assigns the requested question to @question' do
-        patch :update, id: question, question: attributes_for(:question)
         expect(assigns(:question)).to eq question
       end
+
       it 'saves new attributes for @question' do
-        patch :update, id: question, question: { title: 'new title', body: 'new body' }
         question.reload
         expect(question.title).to eq 'new title'
         expect(question.body).to eq 'new body'
       end
-      it 'redirects to @question after save' do
-        patch :update, id: question, question: attributes_for(:question)
-        expect(response).to redirect_to question_path(question)
+
+      it 'render update template' do
+        expect(response).to render_template :update
       end
+
     end
 
     context 'with invalid attributes' do
-      before { patch :update, id: question, question: { title: 'new title', body: nil } }
+      before { patch :update, id: question, question: { title: 'new title', body: nil }, format: :js }
 
       it 'does not change question attributes' do
         question.reload
         expect(question.title).to eq "My Question's title"
         expect(question.body).to eq "My Question's body"
       end
-      it 're-render edit view' do
-        expect(response).to render_template :edit
-      end
     end
+
+
+
   end
 
   describe 'DELETE #destroy' do

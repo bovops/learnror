@@ -1,6 +1,5 @@
-.row
-  h1= @question.title
-  p= @question.body
+.question data-no-turbolink=''
+  = render 'question'
 
 .answers data-no-turbolink=''
   = render 'answers'

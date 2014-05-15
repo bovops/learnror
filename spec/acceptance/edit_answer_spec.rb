@@ -30,9 +30,10 @@ feature 'Edit answer', %q{
     end
 
     scenario 'try to edit answer with valid data', js: true do
-      click_on 'Edit'
+
 
       within '.answers' do
+        click_on 'Edit'
         fill_in 'Answer', with: 'edited answer'
         click_on 'Save'
 
@@ -43,9 +44,10 @@ feature 'Edit answer', %q{
     end
 
     scenario 'try to edit answer with invalid data', js: true do
-      click_on 'Edit'
+
 
       within '.answers' do
+        click_on 'Edit'
         fill_in 'Answer', with: ''
         click_on 'Save'
 

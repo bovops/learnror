@@ -1,0 +1,5 @@
+<% if @question.errors.present? %>
+$('form#edit_question_<%= @question.id %>').html('<%= j render partial: 'questions/question_form', locals: {submit: 'Update Question'} %>');
+<% else %>
+$('.question').html('<%= j render 'questions/question' %>');
+<% end %>
