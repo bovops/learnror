@@ -1,7 +1,7 @@
-.question data-no-turbolink=''
+.question
   = render 'question'
 
-.answers data-no-turbolink=''
+.answers
   = render 'answers'
 
 = render partial: 'answer_form', locals: {answer: @answer, submit: 'Post Your Answer'}
