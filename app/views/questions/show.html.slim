@@ -4,4 +4,5 @@
 .answers
   = render 'answers'
 
-= render partial: 'answer_form', locals: {answer: @answer, submit: 'Post Your Answer'}
+.new_answer_form
+  = render partial: 'answer_form', locals: {answer: @answer, submit: 'Post Your Answer'}

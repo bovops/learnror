@@ -1,10 +1,14 @@
 require 'spec_helper'
 
 describe AnswersController do
-  let!(:question) { create(:question) }
-  let(:answer) { create(:answer, question: question) }
+  let!(:user) { create(:user) }
+  let!(:other_user) { create(:user) }
+  let!(:question) { create(:question, user: user) }
+  let(:answer) { create(:answer, question: question, user: user) }
+  let(:other_answer) { create(:answer, question: question, user: other_user) }
 
   describe 'POST #create' do
+    before { sign_in(user) }
 
     context 'with valid attributes' do
       it 'saves the new answer' do
@@ -32,23 +36,37 @@ describe AnswersController do
   end
 
   describe 'PATCH #update' do
-    before { patch :update, id: answer, question_id: question, answer: {body: 'edited answer'}, format: :js }
+    before { sign_in(user) }
 
-    it 'assigns the requested answer to @answer' do
-      expect(assigns(:answer)).to eq answer
+    context 'his answer' do
+      before { patch :update, id: answer, question_id: question, answer: {body: 'edited answer'}, format: :js }
+
+      it 'assigns the requested answer to @answer' do
+        expect(assigns(:answer)).to eq answer
+      end
+      it 'assigns the question' do
+        expect(assigns(:question)).to eq question
+      end
+
+      it 'changes answer attributes' do
+        answer.reload
+        expect(answer.body).to eq 'edited answer'
+      end
+
+      it 'render update template' do
+        expect(response).to render_template :update
+      end
     end
-    it 'assigns the question' do
-      expect(assigns(:question)).to eq question
-    end
-
-    it 'changes answer attributes' do
-      answer.reload
-      expect(answer.body).to eq 'edited answer'
-    end
 
 
-    it 'render update template' do
-      expect(response).to render_template :update
+    context 'not-owned answer' do
+      before { patch :update, id: other_answer, question_id: question, answer: {body: 'new body'}, format: :js }
+
+      it 'does not change answer attributes' do
+        other_answer.reload
+        expect(other_answer.body).to eq "My Answer"
+      end
+
     end
   end
 

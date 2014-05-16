@@ -1,6 +1,7 @@
 - @question.answers.each do |answer|
   - if answer.persisted?
-    p= answer.body
-    - if user_signed_in?
-      p= link_to 'Edit', '', class: 'js-edit-answer-link', data: { answer_id: answer.id }
-      = render partial: 'questions/answer_form', locals: {answer: answer, submit: 'Save'}
+    div id="answer_#{answer.id}"
+      p= answer.body
+      - if user_signed_in? and answer.user == current_user
+        p= link_to 'Edit', '', class: 'js-edit-answer-link', data: { answer_id: answer.id }
+        = render partial: 'questions/answer_form', locals: {answer: answer, submit: 'Save'}

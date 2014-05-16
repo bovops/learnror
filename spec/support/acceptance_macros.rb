@@ -5,4 +5,5 @@ module AcceptanceMacros
     fill_in 'Password', with: user.password
     click_on 'Sign in'
   end
+
 end
