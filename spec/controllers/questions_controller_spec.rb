@@ -2,10 +2,12 @@ require 'spec_helper'
 
 describe QuestionsController do
   let(:user) { create(:user) }
-  let(:question) { create(:question) }
+  let(:other_user) { create(:user) }
+  let(:question) { create(:question, user: user) }
+  let(:other_question) { create(:question, user: other_user) }
 
   describe 'GET #index' do
-    let(:questions) { create_list(:question, 5) }
+    let(:questions) { create_list(:question, 5, user: user) }
     before { get :index }
 
     it 'assigns all questions to array' do
@@ -47,7 +49,7 @@ describe QuestionsController do
 
     context 'with valid attributes' do
       it 'saves the new question' do
-        expect { post :create, question: attributes_for(:question) }.to change(Question, :count).by(1)
+        expect { post :create, question: attributes_for(:question) }.to change(user.questions, :count).by(1)
       end
       it 'redirects to show view' do
         post :create, question: attributes_for(:question)
@@ -68,6 +70,8 @@ describe QuestionsController do
   end
 
   describe 'PATCH #update' do
+    before { sign_in(user) }
+
     context 'with valid attributes' do
       before { patch :update, id: question, question: { title: 'new title', body: 'new body' }, format: :js }
 
@@ -97,7 +101,16 @@ describe QuestionsController do
       end
     end
 
+    context 'not owned question' do
+      before { patch :update, id: other_question, question: { title: 'new title', body: 'new body' }, format: :js }
 
+      it 'does not change question attributes' do
+        other_question.reload
+        expect(other_question.title).to eq "My Question's title"
+        expect(other_question.body).to eq "My Question's body"
+      end
+
+    end
 
   end
 

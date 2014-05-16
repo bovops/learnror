@@ -8,7 +8,8 @@ feature 'Edit question', %q{
 
   given(:user) { create(:user) }
   given(:other_user) { create(:user) }
-  given(:question) { create(:question) }
+  given(:question) { create(:question, user: user) }
+  given(:other_question) { create(:question, user: other_user) }
 
   scenario 'Unauthenticated user try to edit answer' do
     visit question_path(question)
@@ -23,13 +24,20 @@ feature 'Edit question', %q{
       visit question_path(question)
     end
 
-    scenario 'sees link to edit question' do
+    scenario 'sees link to edit his question' do
       within '.question' do
         expect(page).to have_content 'Edit'
       end
     end
 
-    scenario 'try to edit question with valid data', js: true do
+    scenario 'does not sees link to edit other question' do
+      visit question_path(other_question)
+      within '.question' do
+        expect(page).to_not have_content 'Edit'
+      end
+    end
+
+    scenario 'try to edit his question with valid data', js: true do
       within '.question' do
         click_on 'Edit'
         fill_in 'Title', with: "edited question's title"
