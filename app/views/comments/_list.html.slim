@@ -1,0 +1,8 @@
+- commentable.comments.each do |comment|
+  - if comment.persisted?
+    div id="comment_#{comment.id}"
+      p= comment.body
+
+- if user_signed_in?
+  .new_comment_form
+    = render partial: 'comments/form', locals: {commentable: commentable, comment: commentable.comments.build}

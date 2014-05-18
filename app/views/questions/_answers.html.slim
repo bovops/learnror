@@ -5,3 +5,6 @@
       - if user_signed_in? and answer.user == current_user
         p= link_to 'Edit', '', class: 'js-edit-answer-link', data: { answer_id: answer.id }
         = render partial: 'questions/answer_form', locals: {answer: answer, submit: 'Save'}
+
+      .comments
+        = render partial: 'comments/list', locals: {commentable: answer}

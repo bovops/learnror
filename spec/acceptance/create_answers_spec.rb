@@ -17,7 +17,6 @@ feature 'User answer', %q{
     end
 
     scenario 'create answer', js: true do
-      save_and_open_page
       within 'form#new_answer' do
         fill_in 'Your Answer', with: 'My test answer'
         click_on 'Post Your Answer'
@@ -27,7 +26,6 @@ feature 'User answer', %q{
       within '.answers' do
         expect(page).to have_content 'My test answer'
       end
-      save_and_open_page
       within 'form#new_answer' do
         expect(page).to_not have_content 'My test answer'
       end
@@ -41,4 +39,11 @@ feature 'User answer', %q{
     end
   end
 
+  scenario 'Non-authenticated user try to create answer' do
+    visit question_path(question)
+    within '.new_answer_form' do
+      expect(page).to_not have_selector 'textarea'
+    end
+  end
+  
 end

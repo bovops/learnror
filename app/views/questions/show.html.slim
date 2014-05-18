@@ -5,4 +5,5 @@
   = render 'answers'
 
 .new_answer_form
-  = render partial: 'answer_form', locals: {answer: @answer, submit: 'Post Your Answer'}
+  - if user_signed_in?
+    = render partial: 'answer_form', locals: {answer: @answer, submit: 'Post Your Answer'}
