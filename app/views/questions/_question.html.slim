@@ -2,4 +2,4 @@ h1= @question.title
 p= @question.body
 - if user_signed_in? and current_user == @question.user
   p= link_to 'Edit', '', class: 'js-edit-question-link'
-  = render partial: 'questions/question_form', locals: {submit: 'Update Question'}
+  = render partial: 'form', locals: {submit: 'Update Question'}

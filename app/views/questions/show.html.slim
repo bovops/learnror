@@ -2,8 +2,8 @@
   = render 'question'
 
 .answers
-  = render 'answers'
+  = render 'answers/list'
 
 .new_answer_form
   - if user_signed_in?
-    = render partial: 'answer_form', locals: {answer: @answer, submit: 'Post Your Answer'}
+    = render partial: 'answers/form', locals: {answer: @answer, submit: 'Post Your Answer'}
