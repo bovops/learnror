@@ -3,9 +3,6 @@
 
 .row
 - @questions.each do |q|
-  .row
-    .col-md-1
-      = link_to q.title, question_path(q)
-    .col-md-3
-      = q.body
+  p= link_to q.title, question_path(q)
+
 
