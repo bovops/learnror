@@ -1,14 +1,16 @@
 Rails.application.routes.draw do
 
-  devise_for :users
-  resources :questions do
-    resources :answers
-  end
-
-  resources :answers, only: [] do
+  concern :commentable do
     resources :comments, only: [:create]
   end
 
+  devise_for :users
+  resources :questions do
+    concerns :commentable
+    resources :answers
+  end
+
+  resources :answers, only: [], concerns: :commentable
   resources :comments, only: [:show, :edit, :update, :destroy]
 
   root 'questions#index'
