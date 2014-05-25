@@ -1,5 +1,10 @@
 div id="answer_#{answer.id}"
   p= answer.body
+  p Attachments:
+  ul
+    - answer.attachments.each do |a|
+      li= link_to a.file.identifier, a.file.url
+
   - if user_signed_in? and answer.user == current_user
     = link_to 'Edit', '', class: 'js-edit-answer-link', data: { answer_id: answer.id }
     = ' | '

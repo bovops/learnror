@@ -1,6 +1,7 @@
 .question id="question_#{@question.id}"
   = render 'question'
 
+
   .comments
     = render partial: 'comments/list', locals: {commentable: @question}
 

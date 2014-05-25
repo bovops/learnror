@@ -1,5 +1,10 @@
 h3= @question.title
 p= @question.body
+p Attachments:
+ul
+  - @question.attachments.each do |a|
+    li= link_to a.file.identifier, a.file.url
+
 - if user_signed_in? and current_user == @question.user
   = link_to 'Edit', '', class: 'js-edit-question-link'
   = ' | '
