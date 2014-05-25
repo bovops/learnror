@@ -1,7 +1,9 @@
 div id="answer_#{answer.id}"
   p= answer.body
   - if user_signed_in? and answer.user == current_user
-    p= link_to 'Edit', '', class: 'js-edit-answer-link', data: { answer_id: answer.id }
+    = link_to 'Edit', '', class: 'js-edit-answer-link', data: { answer_id: answer.id }
+    = ' | '
+    = link_to 'Delete', question_answer_path(@question, answer), method: :delete, data: {confirm: 'Are you sure?'}
     = render partial: 'answers/form', locals: {answer: answer, submit: 'Save'}
 
   .comments

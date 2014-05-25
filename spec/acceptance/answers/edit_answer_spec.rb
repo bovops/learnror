@@ -1,4 +1,4 @@
-require_relative 'acceptance_helper'
+require_relative '../acceptance_helper'
 
 feature 'Edit answer', %q{
   In order to fix mistake
@@ -21,7 +21,7 @@ feature 'Edit answer', %q{
   end
 
   describe 'Authenticated user' do
-    before do
+    background do
       sign_in(user)
       visit question_path(question)
     end

@@ -1,4 +1,4 @@
-require_relative 'acceptance_helper'
+require_relative '../acceptance_helper'
 
 feature 'User answer', %q{
   In order to exchange my knowledge
@@ -11,7 +11,7 @@ feature 'User answer', %q{
   given!(:answers) { create_list(:answer, 2, question: question, user: user) }
 
   describe 'Authenticated user' do
-    before do
+    background do
       sign_in(user)
       visit question_path(question)
     end
