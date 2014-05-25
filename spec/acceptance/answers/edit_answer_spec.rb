@@ -14,10 +14,10 @@ feature 'Edit answer', %q{
 
   scenario 'Unauthenticated user try to edit answer' do
     visit question_path(question)
+
     within '.answers' do
       expect(page).to_not have_link 'Edit'
     end
-
   end
 
   describe 'Authenticated user' do
@@ -42,7 +42,6 @@ feature 'Edit answer', %q{
         expect(page).to have_content 'edited answer'
         expect(page).to_not have_selector 'textarea#answer_body'
       end
-
     end
 
     scenario 'try to edit answer with invalid data', js: true do
