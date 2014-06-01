@@ -1,11 +1,7 @@
 - commentable.comments.each do |comment|
   - if comment.persisted?
     div id="comment_#{comment.id}"
-      p= comment.body
-      - if user_signed_in? and comment.user == current_user
-        = link_to 'Edit', '', class: 'js-edit-comment-link', data: { comment_id: comment.id }
-        = ' | '
-        = link_to 'Delete', comment_path(comment), remote: true, method: :delete, data: {confirm: 'Are you sure?'}
+      = render partial: 'comments/comment', locals: {comment: comment}
 
 - if user_signed_in?
   .new_comment_form

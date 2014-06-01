@@ -36,7 +36,7 @@ feature 'Edit answer', %q{
       within "#answer_#{answer.id}" do
         click_on 'Edit'
         fill_in 'Answer', with: 'edited answer'
-        click_on 'Save'
+        click_on 'Update Answer'
 
         expect(page).to_not have_content answer.body
         expect(page).to have_content 'edited answer'
@@ -48,7 +48,7 @@ feature 'Edit answer', %q{
       within "#answer_#{answer.id}" do
         click_on 'Edit'
         fill_in 'Answer', with: ''
-        click_on 'Save'
+        click_on 'Update Answer'
 
         expect(page).to have_content answer.body
         expect(page).to have_selector 'textarea'

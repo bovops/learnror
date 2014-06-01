@@ -1,3 +1,9 @@
-= simple_form_for [commentable, comment], remote: true do |f|
-  = f.input :body, label: 'Your Comment'
-  = f.button :submit, 'Post Your Comment'
+- submit ||= 'Post Your Comment'
+- if comment.persisted?
+  = simple_form_for comment, remote: true do |f|
+    = f.input :body, label: 'Your Comment'
+    = f.button :submit, submit
+- else
+  = simple_form_for [commentable, comment], remote: true do |f|
+    = f.input :body, label: 'Your Comment'
+    = f.button :submit, submit

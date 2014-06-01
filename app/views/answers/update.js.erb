@@ -2,4 +2,7 @@
   $('form#edit_answer_<%= @answer.id %>').html('<%= j render partial: 'form', locals: {answer: @answer, submit: 'Save'} %>');
 <% else %>
   $('.answers').html('<%= j render 'list' %>');
+  $('#EditAnswerForm<%= @answer.id %>').modal('hide');
+  $('body').removeClass('modal-open');
+  $('.modal-backdrop').remove();
 <% end %>

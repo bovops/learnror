@@ -1,0 +1,8 @@
+<% if @comment.errors.present? %>
+$('form#edit_comment_<%= @comment.id %>').html('<%= j render partial: 'comments/form', locals: {commentable: @commentable, comment: @comment} %>');
+<% else %>
+$('<%= "##{@commentable.class.to_s.downcase}_#{@commentable.id} .comments" %>').html('<%= j render partial: 'comments/list', locals: {commentable: @commentable} %>');
+$('#EditCommentForm<%= @comment.id %>').modal('hide');
+$('body').removeClass('modal-open');
+$('.modal-backdrop').remove();
+<% end %>

@@ -48,7 +48,7 @@ feature 'Edit question', %q{
         expect(page).to_not have_content question.body
         expect(page).to have_content "edited question's title"
         expect(page).to have_content "edited question's body"
-        expect(page).to_not have_selector 'textarea'
+        expect(page).to_not have_selector 'textarea#question_body'
       end
     end
 
