@@ -10,3 +10,6 @@ ul
   = ' | '
   = link_to 'Delete', question_path(@question), method: :delete, data: {confirm: 'Are you sure?'}
   = render partial: 'form', locals: {submit: 'Update Question'}
+
+.comments
+  = render partial: 'comments/list', locals: {commentable: @question}
