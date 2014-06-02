@@ -13,7 +13,7 @@ feature 'New question', %q{
     visit questions_path
     click_on 'New question'
     fill_in 'Title', with: 'test title'
-    fill_in 'Text', with: 'test text'
+    fill_in 'Body', with: 'test text'
     click_on 'Create Question'
     expect(page).to have_content 'Question successfully created'
   end

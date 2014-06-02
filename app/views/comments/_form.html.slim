@@ -1,9 +1,9 @@
 - submit ||= 'Post Your Comment'
 - if comment.persisted?
-  = simple_form_for comment, remote: true do |f|
-    = f.input :body, label: 'Your Comment'
-    = f.button :submit, submit
+  - form_path = comment
 - else
-  = simple_form_for [commentable, comment], remote: true do |f|
-    = f.input :body, label: 'Your Comment'
-    = f.button :submit, submit
+  - form_path = [commentable, comment]
+
+= simple_form_for form_path, remote: true do |f|
+  = f.input :body, label: 'Your Comment'
+  = f.button :submit, submit

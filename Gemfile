@@ -45,6 +45,7 @@ gem 'cancancan', '~> 1.7'
 gem 'simple_form', '~> 3.1.0.rc1'
 gem 'remotipart'
 gem 'carrierwave'
+gem 'nested_form'
 
 group :test, :development do
   gem 'rspec-rails'

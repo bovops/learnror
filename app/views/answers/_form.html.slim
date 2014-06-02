@@ -1,9 +1,11 @@
 - submit ||= 'Post Your Answer'
-= simple_form_for [@question, answer], remote: true do |f|
+= simple_nested_form_for [@question, answer], remote: true do |f|
   = f.input :body, label: 'Your Answer'
 
   p Attachments:
   = f.simple_fields_for :attachments do |a|
     = a.input :file
+    = a.link_to_remove "Remove this file"
+  p= f.link_to_add "Add a file", :attachments
 
-  = f.button :submit, submit
+  p= f.button :submit, submit

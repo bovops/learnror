@@ -16,7 +16,7 @@ ul
           button.close aria-hidden="true" data-dismiss="modal" type="button"  &times;
           h4#EditQuestionFormLabel.modal-title Edit Question
         .modal-body
-          = render partial: 'form', locals: {submit: 'Update Question'}
+          = render partial: 'questions/form', locals: {submit: 'Update Question', remote: true}
         .modal-footer
           button.btn.btn-default data-dismiss="modal" type="button"  Close
 
