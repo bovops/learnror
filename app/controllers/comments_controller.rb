@@ -9,7 +9,9 @@ class CommentsController < ApplicationController
     @comment.user = current_user
     @comment.save
     respond_to do |format|
-      format.js
+      format.js do
+        PrivatePub.publish_to "/test", comment: @comment.to_json
+      end
     end
   end
 

@@ -1,6 +1,6 @@
-- commentable.comments.each do |comment|
-  - if comment.persisted?
-    div id="comment_#{comment.id}"
+.comments-list
+  - commentable.comments.each do |comment|
+    - if comment.persisted?
       = render partial: 'comments/comment', locals: {comment: comment}
 
 - if user_signed_in?

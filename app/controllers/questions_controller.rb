@@ -4,6 +4,7 @@ class QuestionsController < ApplicationController
 
   def index
     @questions = Question.all
+    @question = Question.new
   end
 
   def show
@@ -13,15 +14,16 @@ class QuestionsController < ApplicationController
 
   def new
     @question = Question.new
+    redirect_to questions_path
   end
 
   def create
     @question = current_user.questions.new(question_params)
     if @question.save
       flash[:notice] = 'Question successfully created'
-      redirect_to question_path(@question)
-    else
-      render :new
+    end
+    respond_to do |format|
+      format.js
     end
   end
 

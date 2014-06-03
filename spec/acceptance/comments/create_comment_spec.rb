@@ -31,7 +31,7 @@ feature 'Сomments', %q{
         end
 
         expect(current_path).to eq question_path(question)
-        within "#answer_#{answer.id} .comments" do
+        within "#answer_#{answer.id} .comments-box .comments-list" do
           expect(page).to have_content 'My test comment'
         end
         within "#answer_#{answer.id} form#new_comment" do
@@ -67,7 +67,7 @@ feature 'Сomments', %q{
         end
 
         expect(current_path).to eq question_path(question)
-        within '.question .comments' do
+        within '.question .comments-box .comments-list' do
           expect(page).to have_content 'My test comment'
         end
         within '.question form#new_comment' do

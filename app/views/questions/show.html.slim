@@ -8,3 +8,4 @@
   - if user_signed_in?
     = render partial: 'answers/form', locals: {answer: @answer}
 
+= subscribe_to "/questions/#{@question.id}/comments"

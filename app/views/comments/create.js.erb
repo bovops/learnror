@@ -1,5 +1,16 @@
+<% parent = "#{@commentable.class.to_s.downcase}_#{@commentable.id}" %>
+
 <% if @comment.errors.present? %>
-  $('<%= "##{@commentable.class.to_s.downcase}_#{@commentable.id} .comments .new_comment_form" %>').html('<%= j render partial: 'comments/form', locals: {commentable: @commentable, comment: @comment} %>');
+  $('<%= "##{parent} .comments-box .new_comment_form" %>').html('<%= j render partial: 'comments/form', locals: {commentable: @commentable, comment: @comment} %>');
 <% else %>
-  $('<%= "##{@commentable.class.to_s.downcase}_#{@commentable.id} .comments" %>').html('<%= j render partial: 'comments/list', locals: {commentable: @commentable} %>');
+
+  <% publish_to "/#{@commentable.class.to_s.downcase}s/#{@commentable.id}/comments" do %>
+    $('<%= "##{parent} .comments-box .comments-list" %>').append('<%= j render partial: 'comments/comment', locals: {comment: @comment} %>');
+  <% end %>
+
+  if ($('<%= "#comment_#{@comment.id}" %>').length ) { console.log("comment <%= "#{@comment.id}" %> exists") }
+  else {
+    $('<%= "##{parent} .comments-box .comments-list" %>').append('<%= j render partial: 'comments/comment', locals: {comment: @comment} %>');
+  }
+  $('<%= "##{parent} .comments-box .new_comment_form" %>').children('form')[0].reset();
 <% end %>

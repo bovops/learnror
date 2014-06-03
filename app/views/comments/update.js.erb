@@ -1,8 +1,13 @@
 <% if @comment.errors.present? %>
-$('form#edit_comment_<%= @comment.id %>').html('<%= j render partial: 'comments/form', locals: {commentable: @commentable, comment: @comment} %>');
+$('form#edit_comment_<%= @comment.id %>').html('<%= j render partial: 'comments/form', locals: {comment: @comment} %>');
 <% else %>
-$('<%= "##{@commentable.class.to_s.downcase}_#{@commentable.id} .comments" %>').html('<%= j render partial: 'comments/list', locals: {commentable: @commentable} %>');
+$('<%= "#comment_#{@comment.id}" %>').html('<%= j render partial: 'comments/comment', locals: {comment: @comment} %>');
 $('#EditCommentForm<%= @comment.id %>').modal('hide');
 $('body').removeClass('modal-open');
 $('.modal-backdrop').remove();
+
+<% publish_to "/#{@commentable.class.to_s.downcase}s/#{@commentable.id}/comments" do %>
+  $('<%= "#comment_#{@comment.id}" %>').html('<%= j render partial: 'comments/comment', locals: {comment: @comment} %>');
+<% end %>
+
 <% end %>

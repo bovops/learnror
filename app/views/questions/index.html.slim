@@ -1,8 +1,24 @@
-
-= link_to 'New question', new_question_path
+- if user_signed_in?
+  = link_to 'Ask a Question', '#NewQuestionForm', data: {toggle: 'modal'}
+- else
+  = link_to 'Ask a Question', new_question_path
 
 .row
-- @questions.each do |q|
-  p= link_to q.title, question_path(q)
+  .questions-box
+    .questions-list
+      - @questions.each do |q|
+        = render 'questions_list', question: q
 
 
+#NewQuestionForm.modal.fade aria-hidden="true" aria-labelledby="NewQuestionFormLabel" role="dialog" tabindex="-1"
+  .modal-dialog
+    .modal-content
+      .modal-header
+        button.close aria-hidden="true" data-dismiss="modal" type="button"  &times;
+        h4#NewQuestionFormLabel.modal-title Ask Question
+      .modal-body
+        = render 'questions/form'
+      .modal-footer
+        button.btn.btn-default data-dismiss="modal" type="button"  Close
+
+= subscribe_to "/questions"

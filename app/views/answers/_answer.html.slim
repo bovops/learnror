@@ -21,5 +21,7 @@ div id="answer_#{answer.id}"
             button.btn.btn-default data-dismiss="modal" type="button"  Close
 
 
-  .comments
+  .comments-box
     = render partial: 'comments/list', locals: {commentable: answer}
+
+= subscribe_to "/answers/#{answer.id}/comments"

@@ -30,41 +30,29 @@ describe QuestionsController do
     end
   end
 
-  describe 'GET #new' do
-    before do
-      sign_in(user)
-      get :new
-    end
-
-    it 'assigns a new Question to @question' do
-      expect(assigns(:question)).to be_a_new(Question)
-    end
-    it 'renders new view' do
-      expect(response).to render_template :new
-    end
-  end
 
   describe 'POST #create' do
     before { sign_in(user) }
 
     context 'with valid attributes' do
       it 'saves the new question' do
-        expect { post :create, question: attributes_for(:question) }.to change(user.questions, :count).by(1)
+        expect { post :create, question: attributes_for(:question), format: :js }.to change(user.questions, :count).by(1)
       end
-      it 'redirects to show view' do
-        post :create, question: attributes_for(:question)
-        expect(response).to redirect_to question_path(assigns(:question))
+
+      it 'render to create view' do
+        post :create, question: attributes_for(:question), format: :js
+        expect(response).to render_template :create
       end
     end
 
     context 'with invalid attributes' do
       it 'question not saved' do
-        expect { post :create, question: attributes_for(:invalid_question) }.to_not change(Question, :count)
+        expect { post :create, question: attributes_for(:invalid_question), format: :js }.to_not change(Question, :count)
       end
 
-      it 're-render new view' do
-        post :create, question: attributes_for(:invalid_question)
-        expect(response).to render_template :new
+      it 're-render create view' do
+        post :create, question: attributes_for(:invalid_question), format: :js
+        expect(response).to render_template :create
       end
     end
   end
