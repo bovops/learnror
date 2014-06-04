@@ -1,4 +1,7 @@
 class Question < ActiveRecord::Base
+
+  acts_as_taggable
+
   has_many :answers
   has_many :comments, as: :commentable
   has_many :attachments, as: :attachmentable

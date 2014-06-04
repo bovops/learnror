@@ -1,5 +1,11 @@
 h3= @question.title
 p= @question.body
+
+p Tags:
+.tags-box
+  - @question.tag_list.each do |tag|
+    span.label.label-default= tag
+
 p Attachments:
 ul
   - @question.attachments.each do |a|

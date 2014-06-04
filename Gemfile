@@ -46,8 +46,9 @@ gem 'simple_form', '~> 3.1.0.rc1'
 gem 'remotipart'
 gem 'carrierwave'
 gem 'nested_form'
-gem "private_pub"
-gem "thin"
+gem 'private_pub'
+gem 'thin'
+gem 'acts-as-taggable-on'
 
 group :test, :development do
   gem 'rspec-rails'

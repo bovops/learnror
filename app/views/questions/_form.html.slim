@@ -2,6 +2,8 @@
 = simple_nested_form_for @question, remote: true do |f|
   = f.input :title
   = f.input :body
+  p Tags:
+  = f.input :tag_list
 
   p Attachments:
   = f.simple_fields_for :attachments do |a|
