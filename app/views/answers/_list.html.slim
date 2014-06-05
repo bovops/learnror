@@ -1,3 +1,3 @@
-- @question.answers.each do |answer|
+- parent.answers.each do |answer|
   - if answer.persisted?
-    = render partial: 'answers/answer', locals: {answer: answer}
+    = render 'answers/answer', resource: answer, parent: parent

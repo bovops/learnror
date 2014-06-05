@@ -1,5 +1,5 @@
 - submit ||= 'Post Your Answer'
-= simple_nested_form_for [@question, answer], remote: true do |f|
+= simple_nested_form_for [parent, resource], remote: true do |f|
   = f.input :body, label: 'Your Answer'
 
   p Attachments:

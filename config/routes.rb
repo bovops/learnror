@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   concern :commentable do
-    resources :comments, only: [:create]
+    resources :comments
   end
 
   devise_for :users
@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   end
 
   resources :answers, only: [], concerns: :commentable
-  resources :comments, only: [:show, :edit, :update, :destroy]
 
   root 'questions#index'
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,16 +1,16 @@
-<% parent = "#{@commentable.class.to_s.downcase}_#{@commentable.id}" %>
+<% parent_id = "#{parent_type.to_s}-#{parent.id}" %>
 
-<% if @comment.errors.present? %>
-  $('<%= "##{parent} .comments-box .new_comment_form" %>').html('<%= j render partial: 'comments/form', locals: {commentable: @commentable, comment: @comment} %>');
+<% if resource.errors.present? %>
+  $('<%= "##{parent_id} .comments-box .new-comment-form" %>').html('<%= j render 'comments/form' %>');
 <% else %>
 
-  <% publish_to "/#{@commentable.class.to_s.downcase}s/#{@commentable.id}/comments" do %>
-    $('<%= "##{parent} .comments-box .comments-list" %>').append('<%= j render partial: 'comments/comment', locals: {comment: @comment} %>');
+  <% publish_to "/#{parent_type.to_s}s/#{parent.id}/comments" do %>
+    $('<%= "##{parent_id} .comments-box .comments-list" %>').append('<%= j render 'comments/comment' %>');
   <% end %>
 
-  if ($('<%= "#comment_#{@comment.id}" %>').length ) { console.log("comment <%= "#{@comment.id}" %> exists") }
+  if ($('<%= "#comment-#{resource.id}" %>').length ) { console.log("comment <%= "#{resource.id}" %> exists") }
   else {
-    $('<%= "##{parent} .comments-box .comments-list" %>').append('<%= j render partial: 'comments/comment', locals: {comment: @comment} %>');
+    $('<%= "##{parent_id} .comments-box .comments-list" %>').append('<%= j render 'comments/comment' %>');
   }
-  $('<%= "##{parent} .comments-box .new_comment_form" %>').children('form')[0].reset();
+  $('<%= "##{parent_id} .comments-box .new-comment-form" %>').children('form')[0].reset();
 <% end %>

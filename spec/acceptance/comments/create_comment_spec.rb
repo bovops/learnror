@@ -19,34 +19,34 @@ feature 'Сomments', %q{
     describe "Answer's comment" do
 
       scenario 'sees form to create comment' do
-        within "#answer_#{answer.id}" do
+        within "#answer-#{answer.id}" do
           expect(page).to have_selector 'textarea#comment_body'
         end
       end
 
       scenario 'try to create with valid data', js: true do
-        within "#answer_#{answer.id}" do
+        within "#answer-#{answer.id}" do
           fill_in 'Your Comment', with: 'My test comment'
           click_on 'Post Your Comment'
         end
 
         expect(current_path).to eq question_path(question)
-        within "#answer_#{answer.id} .comments-box .comments-list" do
+        within "#answer-#{answer.id} .comments-box .comments-list" do
           expect(page).to have_content 'My test comment'
         end
-        within "#answer_#{answer.id} form#new_comment" do
+        within "#answer-#{answer.id} form#new_comment" do
           expect(page).to_not have_content 'My test comment'
         end
       end
 
       scenario 'try to create with invalid data', js: true do
-        within "#answer_#{answer.id}" do
+        within "#answer-#{answer.id}" do
           fill_in 'Your Comment', with: ''
           click_on 'Post Your Comment'
         end
 
         expect(current_path).to eq question_path(question)
-        within "#answer_#{answer.id} form#new_comment" do
+        within "#answer-#{answer.id} form#new_comment" do
           expect(page).to have_content "can't be blank"
         end
       end

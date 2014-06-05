@@ -16,7 +16,7 @@ feature 'Delete comment', %q{
   scenario 'Unauthenticated user try to destroy comment' do
     visit question_path(question)
 
-    within "#comment_#{comment.id}" do
+    within "#comment-#{comment.id}" do
       expect(page).to_not have_link 'Delete'
     end
   end
@@ -28,22 +28,22 @@ feature 'Delete comment', %q{
     end
 
     scenario 'Sees link to destroy comment' do
-      within "#comment_#{comment.id}" do
+      within "#comment-#{comment.id}" do
         expect(page).to have_link 'Delete'
       end
     end
 
     scenario 'try to destroy his comment', js: true do
-      within "#comment_#{comment.id}" do
+      within "#comment-#{comment.id}" do
         click_on 'Delete'
       end
 
       expect(current_path).to eq question_path(question)
-      expect(page).to_not have_selector "#comment_#{comment.id}"
+      expect(page).to_not have_selector "#comment-#{comment.id}"
     end
 
     scenario 'try to destroy not-owned comment', js: true do
-      within "#comment_#{other_comment.id}" do
+      within "#comment-#{other_comment.id}" do
         expect(page).to_not have_link 'Delete'
       end
     end

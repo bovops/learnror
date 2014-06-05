@@ -1,8 +1,8 @@
-<% if @answer.errors.present? %>
-  $('form#edit_answer_<%= @answer.id %>').html('<%= j render partial: 'form', locals: {answer: @answer, submit: 'Save'} %>');
+<% if resource.errors.present? %>
+  $('form#edit_answer_<%= resource.id %>').html('<%= j render 'form', resource: resource, submit: 'Update Your Answer' %>');
 <% else %>
   $('.answers').html('<%= j render 'list' %>');
-  $('#EditAnswerForm<%= @answer.id %>').modal('hide');
+  $('#EditAnswerForm<%= resource.id %>').modal('hide');
   $('body').removeClass('modal-open');
   $('.modal-backdrop').remove();
 <% end %>

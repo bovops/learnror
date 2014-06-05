@@ -36,23 +36,24 @@ describe QuestionsController do
 
     context 'with valid attributes' do
       it 'saves the new question' do
-        expect { post :create, question: attributes_for(:question), format: :js }.to change(user.questions, :count).by(1)
+        expect { post :create, question: attributes_for(:question) }.to change(user.questions, :count).by(1)
       end
 
-      it 'render to create view' do
-        post :create, question: attributes_for(:question), format: :js
-        expect(response).to render_template :create
+      it 'redirect to question path' do
+        post :create, question: attributes_for(:question)
+        expect(response).to redirect_to(assigns(:question))
       end
+
     end
 
     context 'with invalid attributes' do
       it 'question not saved' do
-        expect { post :create, question: attributes_for(:invalid_question), format: :js }.to_not change(Question, :count)
+        expect { post :create, question: attributes_for(:invalid_question) }.to_not change(Question, :count)
       end
 
-      it 're-render create view' do
-        post :create, question: attributes_for(:invalid_question), format: :js
-        expect(response).to render_template :create
+      it 're-render new view' do
+        post :create, question: attributes_for(:invalid_question)
+        expect(response).to render_template :new
       end
     end
   end
@@ -103,6 +104,8 @@ describe QuestionsController do
   end
 
   describe 'DELETE #destroy' do
+    before { sign_in(user) }
+
     it 'deletes question' do
       question
       expect { delete :destroy, id: question }.to change(Question, :count).by(-1)

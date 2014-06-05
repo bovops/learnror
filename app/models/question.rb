@@ -2,9 +2,9 @@ class Question < ActiveRecord::Base
 
   acts_as_taggable
 
-  has_many :answers
-  has_many :comments, as: :commentable
-  has_many :attachments, as: :attachmentable
+  has_many :answers, dependent: :destroy
+  has_many :comments, as: :commentable, dependent: :destroy
+  has_many :attachments, as: :attachmentable, dependent: :destroy
   belongs_to :user
 
 	validates :title, :body, :user, presence: true

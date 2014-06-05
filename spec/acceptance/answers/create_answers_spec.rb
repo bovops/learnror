@@ -41,7 +41,7 @@ feature 'User answer', %q{
 
   scenario 'Non-authenticated user try to create answer' do
     visit question_path(question)
-    within '.new_answer_form' do
+    within '.new-answer-form' do
       expect(page).to_not have_selector 'textarea'
     end
   end

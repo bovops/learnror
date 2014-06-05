@@ -1,16 +1,16 @@
-div id="comment_#{comment.id}"
-  p= comment.body
-  - if user_signed_in? and comment.user == current_user
-    = link_to 'Edit', "#EditCommentForm#{comment.id}", data: {toggle: 'modal'}
+div id="comment-#{resource.id}"
+  p= resource.body
+  - if user_signed_in? and resource.user == current_user
+    = link_to 'Edit', "#EditCommentForm#{resource.id}", data: {toggle: 'modal'}
     = ' | '
-    = link_to 'Delete', comment_path(comment), remote: true, method: :delete, data: {confirm: 'Are you sure?'}
-    .modal.fade id="EditCommentForm#{comment.id}" aria-hidden="true" aria-labelledby="EditCommentFormLabel" role="dialog" tabindex="-1"
+    = link_to 'Delete', polymorphic_path([parent, resource]), remote: true, method: :delete, data: {confirm: 'Are you sure?'}
+    .modal.fade id="EditCommentForm#{resource.id}" aria-hidden="true" aria-labelledby="EditCommentFormLabel" role="dialog" tabindex="-1"
       .modal-dialog
         .modal-content
           .modal-header
             button.close aria-hidden="true" data-dismiss="modal" type="button"  &times;
-            h4#EditCommentFormLabel.modal-title Edit Comment #{comment.id}
+            h4#EditCommentFormLabel.modal-title Edit Comment #{resource.id}
           .modal-body
-            = render partial: 'comments/form', locals: {comment: comment, submit: 'Update Comment'}
+            = render 'comments/form', parent: parent, resource: resource, submit: 'Update Comment'
           .modal-footer
             button.btn.btn-default data-dismiss="modal" type="button"  Close

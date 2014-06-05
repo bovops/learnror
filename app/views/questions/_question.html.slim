@@ -1,20 +1,20 @@
-h3= @question.title
-p= @question.body
+h3= resource.title
+p= resource.body
 
 p Tags:
 .tags-box
-  - @question.tag_list.each do |tag|
+  - resource.tag_list.each do |tag|
     span.label.label-default= tag
 
 p Attachments:
 ul
-  - @question.attachments.each do |a|
+  - resource.attachments.each do |a|
     li= link_to a.file.identifier, a.file.url
 
-- if user_signed_in? and current_user == @question.user
+- if user_signed_in? and resource.user == current_user
   = link_to 'Edit', '#EditQuestionForm', data: {toggle: 'modal'}
   = ' | '
-  = link_to 'Delete', question_path(@question), method: :delete, data: {confirm: 'Are you sure?'}
+  = link_to 'Delete', question_path(resource), method: :delete, data: {confirm: 'Are you sure?'}
   #EditQuestionForm.modal.fade aria-hidden="true" aria-labelledby="EditQuestionFormLabel" role="dialog" tabindex="-1"
     .modal-dialog
       .modal-content
@@ -28,4 +28,4 @@ ul
 
 
 .comments-box
-  = render partial: 'comments/list', locals: {commentable: @question}
+  = render partial: 'comments/list', locals: {parent: resource}

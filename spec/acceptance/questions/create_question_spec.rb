@@ -15,7 +15,7 @@ feature 'New question', %q{
     fill_in 'Title', with: 'test title'
     fill_in 'Body', with: 'test text'
     click_on 'Post Your Question'
-    expect(page).to have_content 'Question successfully created'
+    expect(page).to have_content 'Question was successfully created.'
     expect(current_path).to eq '/questions/1'
   end
 

@@ -1,5 +1,5 @@
-<% if @question.errors.present? %>
-$('form#edit_question_<%= @question.id %>').html('<%= j render partial: 'form', locals: {submit: 'Update Question'} %>');
+<% if resource.errors.present? %>
+$('form#edit_question_<%= resource.id %>').html('<%= j render 'form', submit: 'Update Question' %>');
 <% else %>
 $('.question').html('<%= j render 'question' %>');
 $('#EditQuestionForm').modal('hide');

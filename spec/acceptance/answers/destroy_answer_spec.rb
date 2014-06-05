@@ -15,7 +15,7 @@ feature 'Delete answer', %q{
   scenario 'Unauthenticated user try to destroy answer' do
     visit question_path(question)
 
-    within "#answer_#{answer.id}" do
+    within "#answer-#{answer.id}" do
       expect(page).to_not have_link 'Delete'
     end
   end
@@ -27,22 +27,22 @@ feature 'Delete answer', %q{
     end
 
     scenario 'Sees link to destroy answer' do
-      within "#answer_#{answer.id}" do
+      within "#answer-#{answer.id}" do
         expect(page).to have_link 'Delete'
       end
     end
 
     scenario 'try to destroy his answer', js: true do
-      within "#answer_#{answer.id}" do
+      within "#answer-#{answer.id}" do
         click_on 'Delete'
       end
 
       expect(current_path).to eq question_path(question)
-      expect(page).to_not have_selector "#answer_#{answer.id}"
+      expect(page).to_not have_selector "#answer-#{answer.id}"
     end
 
     scenario 'try to destroy not-owned answer', js: true do
-      within "#answer_#{other_answer.id}" do
+      within "#answer-#{other_answer.id}" do
         expect(page).to_not have_link 'Delete'
       end
     end

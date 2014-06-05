@@ -19,13 +19,13 @@ feature 'Edit comments', %q{
     end
 
     scenario 'sees link to edit comment' do
-      within "#comment_#{comment.id}" do
+      within "#comment-#{comment.id}" do
         expect(page).to have_link 'Edit'
       end
     end
 
     scenario 'try to edit his comment with valid data', js: true do
-      within "#comment_#{comment.id}" do
+      within "#comment-#{comment.id}" do
         click_on 'Edit'
         fill_in 'Your Comment', with: 'edited comment'
         click_on 'Update Comment'
@@ -37,7 +37,7 @@ feature 'Edit comments', %q{
     end
 
     scenario 'try to edit his comment with invalid data', js: true do
-      within "#comment_#{comment.id}" do
+      within "#comment-#{comment.id}" do
         click_on 'Edit'
         fill_in 'Your Comment', with: ''
         click_on 'Update Comment'
@@ -49,7 +49,7 @@ feature 'Edit comments', %q{
     end
 
     scenario 'try to edit not-owned comment' do
-      within "#comment_#{other_comment.id}" do
+      within "#comment-#{other_comment.id}" do
         expect(page).to_not have_link 'Edit'
       end
     end
@@ -60,7 +60,7 @@ feature 'Edit comments', %q{
   scenario 'Unauthenticated user try to edit comment' do
     visit question_path(question)
 
-    within "#comment_#{comment.id}" do
+    within "#comment-#{comment.id}" do
       expect(page).to_not have_link 'Edit'
     end
   end

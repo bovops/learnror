@@ -49,6 +49,7 @@ gem 'nested_form'
 gem 'private_pub'
 gem 'thin'
 gem 'acts-as-taggable-on'
+gem 'inherited_resources'
 
 group :test, :development do
   gem 'rspec-rails'

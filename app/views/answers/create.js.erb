@@ -1,6 +1,6 @@
-<% if @answer.errors.present? %>
-  $('.new_answer_form').html('<%= j render partial: 'form', locals: {answer: @answer, submit: 'Post Your Answer'} %>');
+<% if resource.errors.present? %>
+  $('.new-answer-form').html('<%= j render 'form', submit: 'Post Your Answer' %>');
 <% else %>
   $('.answers').html('<%= j render 'list' %>');
-  $('.new_answer_form').html('<%= j render partial: 'form', locals: {answer: @question.answers.build, submit: 'Post Your Answer'} %>');
+  $('.new-answer-form').html('<%= j render 'form', resource: parent.answers.build, submit: 'Post Your Answer' %>');
 <% end %>

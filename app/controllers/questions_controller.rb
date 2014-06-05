@@ -1,45 +1,23 @@
-class QuestionsController < ApplicationController
-  before_action :load_question, only: [:show, :edit, :update, :destroy]
+class QuestionsController < InheritedResources::Base
   before_action :authenticate_user!, only: [:new, :create]
+  before_action :build_answer, only: :show
+  respond_to :html
+  respond_to :js, only: :update
+  actions :all, except: [:edit]
 
-  def index
-    @questions = Question.all
-    @question = Question.new
+  before_action only: [:edit, :update, :destroy] do
+    check_permissions(@question)
   end
 
-  def show
-    @answer = @question.answers.build
-    #@answer.attachments.build
+  protected
+
+  def build_answer
+    @answer = resource.answers.build
   end
 
-  def new
-    @question = Question.new
-    redirect_to questions_path
-  end
-
-  def create
-    @question = current_user.questions.new(question_params)
-    if @question.save
-      flash[:notice] = 'Question successfully created'
-    end
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def update
-    @question.update(question_params) if @question.user == current_user
-  end
-
-  def destroy
-    @question.destroy
-    redirect_to questions_path
-  end
-
-  private
-
-  def load_question
-    @question = Question.find(params[:id])
+  def create_resource(object)
+    object.user = current_user
+    super
   end
 
   def question_params

@@ -1,11 +1,11 @@
-.question id="question_#{@question.id}"
+.question id="question-#{resource.id}" data-question-id="#{resource.id}"
   = render 'question'
 
 .answers
-  = render 'answers/list'
+  = render 'answers/list', parent: resource
 
-.new_answer_form
+.new-answer-form
   - if user_signed_in?
-    = render partial: 'answers/form', locals: {answer: @answer}
+    = render 'answers/form', parent: resource, resource: @answer
 
-= subscribe_to "/questions/#{@question.id}/comments"
+= subscribe_to "/questions/#{resource.id}/comments"

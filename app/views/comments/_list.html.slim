@@ -1,8 +1,8 @@
 .comments-list
-  - commentable.comments.each do |comment|
+  - parent.comments.each do |comment|
     - if comment.persisted?
-      = render partial: 'comments/comment', locals: {comment: comment}
+      = render 'comments/comment', parent: parent, resource: comment
 
 - if user_signed_in?
-  .new_comment_form
-    = render partial: 'comments/form', locals: {commentable: commentable, comment: commentable.comments.build}
+  .new-comment-form
+    = render 'comments/form', parent: parent, resource: parent.comments.build

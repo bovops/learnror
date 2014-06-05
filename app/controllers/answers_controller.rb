@@ -1,41 +1,19 @@
-class AnswersController < ApplicationController
-
-  before_action :authenticate_user!, only: [:new, :create, :destroy]
-  before_action :load_question, only: [:create, :update, :destroy]
-  before_action :load_answer, only: [:update, :destroy]
-
-
-  def create
-    @answer = @question.answers.new(answer_params)
-    @answer.user = current_user
-    @answer.save
-    respond_to do |format|
-      format.js
-    end
+class AnswersController < InheritedResources::Base
+  respond_to :js
+  actions :create, :update, :destroy
+  before_action :authenticate_user!, only: [:create, :destroy]
+  before_action only: [:update, :destroy] do
+    check_permissions(resource)
   end
 
-  def update
-    @answer.update(answer_params) if @answer.user == current_user
-    respond_to do |format|
-      format.js
-    end
-  end
+  belongs_to :question
 
-  def destroy
-    @answer.destroy
-    respond_to do |format|
-      format.js
-    end
-  end
 
-  private
+  protected
 
-  def load_question
-    @question = Question.find(params[:question_id])
-  end
-
-  def load_answer
-    @answer = Answer.find(params[:id])
+  def create_resource(object)
+    object.user = current_user
+    super
   end
 
   def answer_params

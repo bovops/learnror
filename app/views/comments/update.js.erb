@@ -1,13 +1,13 @@
-<% if @comment.errors.present? %>
-$('form#edit_comment_<%= @comment.id %>').html('<%= j render partial: 'comments/form', locals: {comment: @comment} %>');
+<% if resource.errors.present? %>
+$('form#edit_comment_<%= resource.id %>').html('<%= j render 'comments/form' %>');
 <% else %>
-$('<%= "#comment_#{@comment.id}" %>').html('<%= j render partial: 'comments/comment', locals: {comment: @comment} %>');
-$('#EditCommentForm<%= @comment.id %>').modal('hide');
+$('<%= "#comment-#{resource.id}" %>').html('<%= j render 'comments/comment' %>');
+$('#EditCommentForm<%= resource.id %>').modal('hide');
 $('body').removeClass('modal-open');
 $('.modal-backdrop').remove();
 
-<% publish_to "/#{@commentable.class.to_s.downcase}s/#{@commentable.id}/comments" do %>
-  $('<%= "#comment_#{@comment.id}" %>').html('<%= j render partial: 'comments/comment', locals: {comment: @comment} %>');
+<% publish_to "/#{parent_type.to_s}s/#{parent.id}/comments" do %>
+  $('<%= "#comment-#{resource.id}" %>').html('<%= j render 'comments/comment' %>');
 <% end %>
 
 <% end %>

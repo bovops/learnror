@@ -27,13 +27,13 @@ feature 'Edit answer', %q{
     end
 
     scenario 'sees link to Edit' do
-      within "#answer_#{answer.id}" do
+      within "#answer-#{answer.id}" do
         expect(page).to have_link 'Edit'
       end
     end
 
     scenario 'try to edit answer with valid data', js: true do
-      within "#answer_#{answer.id}" do
+      within "#answer-#{answer.id}" do
         click_on 'Edit'
         fill_in 'Answer', with: 'edited answer'
         click_on 'Update Answer'
@@ -45,7 +45,7 @@ feature 'Edit answer', %q{
     end
 
     scenario 'try to edit answer with invalid data', js: true do
-      within "#answer_#{answer.id}" do
+      within "#answer-#{answer.id}" do
         click_on 'Edit'
         fill_in 'Answer', with: ''
         click_on 'Update Answer'
@@ -57,7 +57,7 @@ feature 'Edit answer', %q{
     end
 
     scenario 'try to edit not-owned answer' do
-      within "#answer_#{other_answer.id}" do
+      within "#answer-#{other_answer.id}" do
         expect(page).to_not have_link 'Edit'
       end
     end
