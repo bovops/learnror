@@ -1,3 +1,3 @@
-- parent.answers.each do |answer|
+- parent.answers.includes(:comments, :attachments).each do |answer|
   - if answer.persisted?
     = render 'answers/answer', resource: answer, parent: parent

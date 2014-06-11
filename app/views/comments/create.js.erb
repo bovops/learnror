@@ -1,16 +1,16 @@
-<% parent_id = "#{parent_type.to_s}-#{parent.id}" %>
+<% if parent_type == :question %>
+  <% parent_selector = ".question .comments-box" %>
+<% elsif parent_type == :answer %>
+  <% parent_selector = "#answer-#{parent.id} .comments-box" %>
+<% end %>
 
 <% if resource.errors.present? %>
-  $('<%= "##{parent_id} .comments-box .new-comment-form" %>').html('<%= j render 'comments/form' %>');
+  $('<%= parent_selector %> .new-comment-form').html('<%= j render 'comments/form' %>');
 <% else %>
 
   <% publish_to "/#{parent_type.to_s}s/#{parent.id}/comments" do %>
-    $('<%= "##{parent_id} .comments-box .comments-list" %>').append('<%= j render 'comments/comment' %>');
+    $('<%= parent_selector %> .comments-list').append('<%= j render 'comments/comment' %>');
   <% end %>
 
-  if ($('<%= "#comment-#{resource.id}" %>').length ) { console.log("comment <%= "#{resource.id}" %> exists") }
-  else {
-    $('<%= "##{parent_id} .comments-box .comments-list" %>').append('<%= j render 'comments/comment' %>');
-  }
-  $('<%= "##{parent_id} .comments-box .new-comment-form" %>').children('form')[0].reset();
+  $('<%= parent_selector %> .new-comment-form').children('form')[0].reset();
 <% end %>
