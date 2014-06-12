@@ -35,6 +35,7 @@ feature 'Delete answer', %q{
     scenario 'try to destroy his answer', js: true do
       within "#answer-#{answer.id}" do
         click_on 'Delete'
+        page.driver.browser.switch_to.alert.accept
       end
 
       expect(current_path).to eq question_path(question)

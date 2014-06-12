@@ -36,6 +36,7 @@ feature 'Delete comment', %q{
     scenario 'try to destroy his comment', js: true do
       within "#comment-#{comment.id}" do
         click_on 'Delete'
+        page.driver.browser.switch_to.alert.accept
       end
 
       expect(current_path).to eq question_path(question)
