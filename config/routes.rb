@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     resources :comments
   end
 
-  devise_for :users
+  devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
   resources :questions do
     concerns :commentable
     resources :answers

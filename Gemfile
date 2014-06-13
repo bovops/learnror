@@ -50,6 +50,8 @@ gem 'private_pub'
 gem 'thin'
 gem 'acts-as-taggable-on'
 gem 'inherited_resources'
+gem 'omniauth'
+gem 'omniauth-facebook'
 
 group :test, :development do
   gem 'rspec-rails'
