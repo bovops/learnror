@@ -52,6 +52,7 @@ gem 'acts-as-taggable-on'
 gem 'inherited_resources'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'omniauth-twitter'
 
 group :test, :development do
   gem 'rspec-rails'
