@@ -3,6 +3,6 @@
     - if comment.persisted?
       = render 'comments/comment', parent: parent, resource: comment
 
-- if user_signed_in?
+- if can? :create, Comment
   .new-comment-form
     = render 'comments/form', parent: parent, resource: parent.comments.build

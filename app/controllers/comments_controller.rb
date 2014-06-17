@@ -3,9 +3,6 @@ class CommentsController < InheritedResources::Base
   actions :create, :update, :destroy
   belongs_to :question, :answer, polymorphic: true
   respond_to :js
-  before_action only: [:update, :destroy] do
-    check_permissions(resource)
-  end
 
   protected
 

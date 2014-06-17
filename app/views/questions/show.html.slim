@@ -5,7 +5,7 @@
   = render 'answers/list', parent: resource
 
 .new-answer-form
-  - if user_signed_in?
+  - if can? :create, Answer
     = render 'answers/form', parent: resource, resource: @answer
 
 = subscribe_to "/questions/#{resource.id}/comments"

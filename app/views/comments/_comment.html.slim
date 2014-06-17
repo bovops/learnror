@@ -1,9 +1,7 @@
 div id="comment-#{resource.id}"
   p= resource.body
-  - if user_signed_in? and resource.user == current_user
+  - if can? :update, resource
     = link_to 'Edit', "#EditCommentForm#{resource.id}", data: {toggle: 'modal'}
-    = ' | '
-    = link_to 'Delete', polymorphic_path([parent, resource]), remote: true, method: :delete, data: {confirm: 'Are you sure?'}
     .modal.fade id="EditCommentForm#{resource.id}" aria-hidden="true" aria-labelledby="EditCommentFormLabel" role="dialog" tabindex="-1"
       .modal-dialog
         .modal-content
@@ -14,3 +12,6 @@ div id="comment-#{resource.id}"
             = render 'comments/form', parent: parent, resource: resource, submit: 'Update Comment'
           .modal-footer
             button.btn.btn-default data-dismiss="modal" type="button"  Close
+  - if can? :destroy, resource
+    = ' | '
+    = link_to 'Delete', polymorphic_path([parent, resource]), remote: true, method: :delete, data: {confirm: 'Are you sure?'}

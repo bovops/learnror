@@ -11,10 +11,8 @@ ul
   - resource.attachments.each do |a|
     li= link_to a.file.identifier, a.file.url
 
-- if user_signed_in? and resource.user == current_user
+- if can? :update, resource
   = link_to 'Edit', '#EditQuestionForm', data: {toggle: 'modal'}
-  = ' | '
-  = link_to 'Delete', question_path(resource), method: :delete, data: {confirm: 'Are you sure?'}
   #EditQuestionForm.modal.fade aria-hidden="true" aria-labelledby="EditQuestionFormLabel" role="dialog" tabindex="-1"
     .modal-dialog
       .modal-content
@@ -26,6 +24,9 @@ ul
         .modal-footer
           button.btn.btn-default data-dismiss="modal" type="button"  Close
 
+- if can? :destroy, resource
+  = ' | '
+  = link_to 'Delete', question_path(resource), method: :delete, data: {confirm: 'Are you sure?'}
 
 .comments-box
   = render partial: 'comments/list', locals: {parent: resource}

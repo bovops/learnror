@@ -1,13 +1,10 @@
 class QuestionsController < InheritedResources::Base
+  skip_load_and_authorize_resource :only => [:new, :create]
   before_action :authenticate_user!, only: [:new, :create]
   before_action :build_answer, only: :show
   respond_to :html
   respond_to :js, only: :update
   actions :all, except: [:edit]
-
-  before_action only: [:edit, :update, :destroy] do
-    check_permissions(@question)
-  end
 
   protected
 

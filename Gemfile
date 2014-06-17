@@ -41,7 +41,7 @@ gem 'spring',        group: :development
 gem 'bootstrap-sass'
 gem 'slim-rails'
 gem 'devise'
-gem 'cancancan', '~> 1.7'
+gem 'cancancan', '~> 1.8'
 gem 'simple_form', '~> 3.1.0.rc1'
 gem 'remotipart'
 gem 'carrierwave'
@@ -53,11 +53,15 @@ gem 'inherited_resources'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
+gem 'bullet'
+gem 'better_errors'
+
 
 group :test, :development do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'pry-rails'
+  gem 'rails_best_practices'
 end
 
 group :test do

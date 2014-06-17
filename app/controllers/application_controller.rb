@@ -5,18 +5,10 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def check_permissions (object = nil )
-    object ||= resource
-    unless object.user == current_user
-      respond_to do |format|
-        format.html { redirect_to root_path, flash: {alert: "You don't have permission to manage this #{object.class.to_s.downcase}!"}}
-        format.js { growl("You don't have permission to manage this #{object.class.to_s.downcase}!", ["theme: 'growl_alert'"]) }
-      end
-    end
-  end
+  load_and_authorize_resource unless: :devise_controller?
 
-  def growl(message, *options)
-    render template: 'shared/growl', locals: {message: message, options: options}, format: :js
+  rescue_from CanCan::AccessDenied do
+    render file: "#{Rails.root}/public/403.html", status: 403, layout: false
   end
 
 end
