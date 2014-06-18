@@ -1,4 +1,7 @@
-div id="answer-#{resource.id}"
+div id="answer-#{resource.id}" class="#{ resource.accepted? ? 'accepted' : '' }"
+  - if can? :accept, resource
+    = link_to 'Best Answer', accept_question_answer_path(parent, resource), remote: true, method: :post
+
   p= resource.body
   p Attachments:
   ul

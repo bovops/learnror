@@ -21,6 +21,8 @@ class Ability
     can :destroy, User, id: user.id
     can :update, [Question, Answer, Comment], user_id: user.id
     can :destroy, [Question, Answer, Comment], user_id: user.id
+
+    can :accept, Answer, question: {user_id: user.id}
   end
 
   def guest_abilities

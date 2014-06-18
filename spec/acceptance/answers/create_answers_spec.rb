@@ -1,6 +1,6 @@
 require_relative '../acceptance_helper'
 
-feature 'User answer', %q{
+feature 'Create answer', %q{
   In order to exchange my knowledge
   As an authenticated user
   I want to be able to create answers
@@ -23,7 +23,7 @@ feature 'User answer', %q{
       end
 
       expect(current_path).to eq question_path(question)
-      within '.answers' do
+      within '.answers-list' do
         expect(page).to have_content 'My test answer'
       end
       within 'form#new_answer' do

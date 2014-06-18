@@ -1,0 +1,7 @@
+<% if resource.accepted? %>
+  $('.answers').children('.accepted').removeClass('accepted');
+  $('#answer-<%= resource.id %>').addClass('accepted');
+  $('#answer-<%= resource.id %>').prependTo('.answers-list:first');
+<% else %>
+  $('#answer-<%= resource.id %>').removeClass('accepted')
+<% end %>

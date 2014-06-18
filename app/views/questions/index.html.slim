@@ -1,9 +1,12 @@
 = link_to 'Ask a Question', new_question_path
 
 .row
-  .questions-box
-    .questions-list
-      - collection.each do |q|
-        = render 'questions_list', resource: q
+  .col-md-9
+    .questions-box
+      .subheader
+        h3 Questions
+      .questions-list
+        - collection.each do |q|
+          = render 'questions_list', resource: q
 
 = subscribe_to "/questions"

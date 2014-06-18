@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { omniauth_callbacks: 'omniauth_callbacks' }
   resources :questions do
     concerns :commentable
-    resources :answers
+    resources :answers do
+      post :accept, on: :member
+    end
   end
 
   resources :answers, only: [], concerns: :commentable

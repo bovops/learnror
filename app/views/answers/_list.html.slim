@@ -1,3 +1,7 @@
-- parent.answers.includes(:comments, :attachments).each do |answer|
-  - if answer.persisted?
-    = render 'answers/answer', resource: answer, parent: parent
+.subheader
+  h3= pluralize parent.answers_count, 'Answer'
+  hr
+.answers-list
+  - parent.answers.includes(:comments, :attachments).order(accepted: :desc, created_at: :asc).each do |answer|
+    - if answer.persisted?
+      = render 'answers/answer', resource: answer, parent: parent
